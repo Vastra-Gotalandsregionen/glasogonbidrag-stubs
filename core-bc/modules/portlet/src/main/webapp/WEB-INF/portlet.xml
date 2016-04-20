@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+
+  Copyright 2009 Vastra Gotalandsregionen This library is free software; you can redistribute it and/or modify it
+  under the terms of version 2.1 of the GNU Lesser General Public License as published by the Free Software
+  Foundation. This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+  License for more details. You should have received a copy of the GNU Lesser General Public License along with this
+  library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+-->
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+             id="glasogonbidrag-core-bc-module-portlet">
+
+    <portlet>
+      <portlet-name>glasogonbidrag-stub-test</portlet-name>
+      <display-name>glasogonbidrag-stub-test</display-name>
+      <portlet-class>com.liferay.faces.bridge.GenericLiferayFacesPortlet</portlet-class>
+
+      <init-param>
+          <name>javax.portlet.faces.defaultViewId.view</name>
+          <value>/views/test/view.xhtml</value>
+      </init-param>
+
+      <supports>
+          <mime-type>text/html</mime-type>
+          <portlet-mode>VIEW</portlet-mode>
+      </supports>
+
+      <portlet-info>
+          <title>glasogonbidrag-stub-test</title>
+          <short-title>glasogonbidrag-stub-test</short-title>
+          <keywords>glasogonbidrag-stub-test</keywords>
+      </portlet-info>
+
+    </portlet>
+
+    <portlet>
+        <portlet-name>glasogonbidrag-stub-faktura</portlet-name>
+        <display-name>glasogonbidrag-stub-faktura</display-name>
+        <portlet-class>com.liferay.faces.bridge.GenericLiferayFacesPortlet</portlet-class>
+
+        <init-param>
+            <name>javax.portlet.faces.defaultViewId.view</name>
+            <value>/views/faktura/view.xhtml</value>
+        </init-param>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>glasogonbidrag-stub-faktura</title>
+            <short-title>glasogonbidrag-stub-faktura</short-title>
+            <keywords>glasogonbidrag-stub-faktura</keywords>
+        </portlet-info>
+
+    </portlet>
+
+
+</portlet-app>
