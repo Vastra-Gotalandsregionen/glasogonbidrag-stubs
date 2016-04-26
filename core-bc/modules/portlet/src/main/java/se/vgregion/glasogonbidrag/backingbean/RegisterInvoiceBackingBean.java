@@ -4,19 +4,24 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-@ManagedBean
+@Component(value = "registerInvoiceBackingBean")
+@Scope(value="request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RegisterInvoiceBackingBean {
+
+    @Autowired
+    private RegisterGrantBackingBean registerGrantBackingBean;
 
     @PostConstruct
     public void init() {
@@ -54,7 +59,9 @@ public class RegisterInvoiceBackingBean {
 
         System.out.println("RegisterInvoiceBackingBean - submitInvoiceRegistration");
 
-        return "invoice_overview";
+        registerGrantBackingBean.init();
+
+        return "add_grant?faces-redirect=true&amp;includeViewParams=true";
     }
 
 
