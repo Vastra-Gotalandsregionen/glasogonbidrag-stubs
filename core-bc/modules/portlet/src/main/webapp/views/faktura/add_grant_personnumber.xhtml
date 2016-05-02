@@ -16,7 +16,7 @@
         <div class="field-row">
             <div class="field-element inline">
                 <h:outputLabel for="personNumber" value="Personnummer:" />
-                <h:inputText id="personNumber" pt:placeholder="Skriv in personnummer..." value="#{registerGrantBackingBean.grant.personNumber}" pt:autofocus="true" pt:data-mask="true" pt:data-masktype="personnumber" />
+                <h:inputText id="personNumber" pt:placeholder="Skriv in personnummer..." value="#{registerGrantBackingBean.grant.personNumber}" pt:autofocus="true" pt:data-usemask="true" pt:data-masktype="personnumber" />
             </div>
         </div>
         <div class="button-row">
@@ -62,7 +62,7 @@
         <div class="field-row field-row-2">
             <div class="field-element inline">
                 <h:outputLabel for="prescriptionDate" value="Receptdatum:" />
-                <h:inputText id="prescriptionDate" pt:placeholder="ÅÅÅÅ-MM-DD" value="#{registerGrantBackingBean.grant.prescriptionDate}" pt:autofocus="true" pt:data-mask="true" pt:data-masktype="date">
+                <h:inputText id="prescriptionDate" pt:placeholder="ÅÅÅÅ-MM-DD" value="#{registerGrantBackingBean.grant.prescriptionDate}" pt:autofocus="true" pt:data-usemask="true" pt:data-masktype="date">
                     <h:outputText value="#{iregisterGrantBackingBean.grant.prescriptionDate}">
                         <f:convertDateTime pattern="yyyy-MM-dd" />
                     </h:outputText>
