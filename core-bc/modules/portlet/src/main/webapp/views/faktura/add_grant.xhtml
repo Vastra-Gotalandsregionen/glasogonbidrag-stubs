@@ -5,7 +5,6 @@
 		xmlns:c="http://java.sun.com/jsp/jstl/core"
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:p="http://primefaces.org/ui"
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:bridge="http://liferay.com/faces/bridge"
 		xmlns:portlet="http://java.sun.com/portlet_2_0"
@@ -26,63 +25,67 @@
 		<div class="row-fluid">
 
 			<div class="span3">
-				<p>Fakturasammanfattning här</p>
+				<ui:include src="invoice_summary.xhtml" />
+				<ui:include src="invoice_grant_rows.xhtml" />
+				<ui:include src="invoice_meta.xhtml" />
 			</div>
 
 			<div class="span6">
 
 				<h:form id="addGrantForm" pt:data-focus_="true">
 
-					<div class="gb-tabs">
-						<ul class="tabs-list">
-							<li class="#{registerGrantBackingBean.tabIndexActive == 0 ? 'active' : ''}">
-								<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive != 0}">
-									<h:commandLink styleClass="tab" value="Personnummer">
-										<f:ajax listener="#{registerGrantBackingBean.tabsListener(0)}" render=":addGrantForm" />
-									</h:commandLink>
-								</ui:fragment>
+					<div class="box box-tight">
+						<div class="gb-tabs">
+							<ul class="tabs-list">
+								<li class="#{registerGrantBackingBean.tabIndexActive == 0 ? 'active' : ''}">
+									<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive != 0}">
+										<h:commandLink styleClass="tab" value="Personnummer">
+											<f:ajax listener="#{registerGrantBackingBean.tabsListener(0)}" render=":addGrantForm" />
+										</h:commandLink>
+									</ui:fragment>
+									<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 0}">
+										<span class="tab" >Personnummer</span>
+									</ui:fragment>
+								</li>
+								<li class="#{registerGrantBackingBean.tabIndexActive == 1 ? 'active' : ''}">
+									<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive != 1}">
+										<h:commandLink styleClass="tab" value="LMA-nummer">
+											<f:ajax listener="#{registerGrantBackingBean.tabsListener(1)}" render=":addGrantForm" />
+										</h:commandLink>
+									</ui:fragment>
+									<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 1}">
+										<span class="tab" >LMA-nummer</span>
+									</ui:fragment>
+								</li>
+								<li class="#{registerGrantBackingBean.tabIndexActive == 2 ? 'active' : ''}">
+									<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive != 2}">
+										<h:commandLink styleClass="tab" value="Oregistrerade">
+											<f:ajax listener="#{registerGrantBackingBean.tabsListener(2)}" render=":addGrantForm" />
+										</h:commandLink>
+									</ui:fragment>
+									<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 2}">
+										<span class="tab" >Oregistrerade</span>
+									</ui:fragment>
+								</li>
+							</ul>
+
+							<div class="tabs-content">
+
 								<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 0}">
-									<span class="tab" >Personnummer</span>
+									<ui:include src="add_grant_personnumber.xhtml" />
 								</ui:fragment>
-							</li>
-							<li class="#{registerGrantBackingBean.tabIndexActive == 1 ? 'active' : ''}">
-								<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive != 1}">
-									<h:commandLink styleClass="tab" value="LMA-nummer">
-										<f:ajax listener="#{registerGrantBackingBean.tabsListener(1)}" render=":addGrantForm" />
-									</h:commandLink>
-								</ui:fragment>
+
 								<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 1}">
-									<span class="tab" >LMA-nummer</span>
+									<ui:include src="add_grant_lmanumber.xhtml" />
 								</ui:fragment>
-							</li>
-							<li class="#{registerGrantBackingBean.tabIndexActive == 2 ? 'active' : ''}">
-								<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive != 2}">
-									<h:commandLink styleClass="tab" value="Oregistrerade">
-										<f:ajax listener="#{registerGrantBackingBean.tabsListener(2)}" render=":addGrantForm" />
-									</h:commandLink>
-								</ui:fragment>
+
 								<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 2}">
-									<span class="tab" >Oregistrerade</span>
+									<ui:include src="add_grant_unregistered.xhtml" />
 								</ui:fragment>
-							</li>
-						</ul>
 
-						<div class="tabs-content">
-
-							<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 0}">
-								<ui:include src="add_grant_personnumber.xhtml" />
-							</ui:fragment>
-
-							<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 1}">
-								<ui:include src="add_grant_lmanumber.xhtml" />
-							</ui:fragment>
-
-							<ui:fragment rendered="#{registerGrantBackingBean.tabIndexActive == 2}">
-								<ui:include src="add_grant_unregistered.xhtml" />
-							</ui:fragment>
+							</div>
 
 						</div>
-
 					</div>
 				</h:form>
 
@@ -90,52 +93,7 @@
 			</div>
 
 			<div class="span3">
-				<h:panelGroup id="grantHistory" layout="block">
-					<ui:fragment rendered="#{not empty registerGrantBackingBean.issuedGrants}">
-						<table class="simple-table">
-							<thead>
-								<tr>
-									<th>Ver.nr.</th>
-									<th>Belopp</th>
-									<th>Datum</th>
-									<th>Status</th>
-								</tr>
-							</thead>
-							<tbody>
-								<ui:repeat var="issuedGrant" value="#{registerGrantBackingBean.issuedGrants}">
-									<tr>
-										<td>
-											<h:outputText value="#{issuedGrant.voucherNumber}" />
-										</td>
-										<td>
-											<h:outputText value="#{issuedGrant.amountExcludingVAT}">
-												<f:convertNumber groupingUsed="true" minFractionDigits="2" />
-											</h:outputText>
-
-										</td>
-										<td>
-											<div>
-												<h:outputText value="#{issuedGrant.prescriptionDate}">
-													<f:convertDateTime pattern="yyyy-MM-dd" />
-												</h:outputText>
-											</div>
-											<div>
-												<h:outputText value="#{issuedGrant.receiptDate}">
-													<f:convertDateTime pattern="yyyy-MM-dd" />
-												</h:outputText>
-											</div>
-										</td>
-										<td>
-											<h:outputText value="#{issuedGrant.status}" />
-										</td>
-									</tr>
-								</ui:repeat>
-							</tbody>
-						</table>
-
-					</ui:fragment>
-				</h:panelGroup>
-
+				<ui:include src="beneficiary_history.xhtml" />
 			</div>
 
 

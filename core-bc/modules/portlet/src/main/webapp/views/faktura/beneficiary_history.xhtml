@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<f:view
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:bridge="http://liferay.com/faces/bridge"
+        xmlns:portlet="http://java.sun.com/portlet_2_0"
+        xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+>
+
+    <h:panelGroup id="grantHistory" layout="block">
+        <ui:fragment rendered="#{not empty registerGrantBackingBean.issuedGrants}">
+            <div class="box box-sidebar">
+
+                <div class="box-hd">
+                    <h3 class="box-title">
+                        <h:outputText value="Historik Bidragstagare" />
+                    </h3>
+                </div>
+
+                <div class="box-bd">
+                    <table class="simple-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <h:outputText value="Ver.nr." />
+                            </th>
+                            <th>
+                                <h:outputText value="Belopp" />
+                            </th>
+                            <th>
+                                <h:outputText value="Datum" />
+                            </th>
+                            <th>
+                                <h:outputText value="Status" />
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ui:repeat var="issuedGrant" value="#{registerGrantBackingBean.issuedGrants}">
+                            <tr>
+                                <td>
+                                    <h:outputText value="#{issuedGrant.voucherNumber}" />
+                                </td>
+                                <td class="">
+                                    <h:outputText value="#{issuedGrant.amountExcludingVAT}">
+                                        <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                    </h:outputText>
+
+                                </td>
+                                <td>
+                                    <div>
+                                        <h:outputText value="#{issuedGrant.prescriptionDate}">
+                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                        </h:outputText>
+                                    </div>
+                                    <div>
+                                        <h:outputText value="#{issuedGrant.receiptDate}">
+                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                        </h:outputText>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{issuedGrant.status}" />
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </ui:fragment>
+    </h:panelGroup>
+
+</f:view>

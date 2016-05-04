@@ -5,7 +5,6 @@
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:bridge="http://liferay.com/faces/bridge"
         xmlns:portlet="http://java.sun.com/portlet_2_0"
@@ -13,66 +12,92 @@
 >
 
     <ui:fragment rendered="#{empty registerGrantBackingBean.grant.personNumber}">
-        <div class="field-row">
-            <div class="field-element inline">
-                <h:outputLabel for="personNumber" value="Personnummer:" />
-                <h:inputText id="personNumber" pt:placeholder="Skriv in personnummer..." value="#{registerGrantBackingBean.grant.personNumber}" pt:autofocus="true" pt:data-usemask="true" pt:data-masktype="personnumber" />
+
+        <div class="grant-section">
+            <div class="field-row">
+                <div class="field-element inline">
+                    <h:outputLabel for="personNumber" value="Personnummer:" />
+                    <h:inputText id="personNumber" styleClass="js-input-mask js-input-mask-personnumber" pt:placeholder="Skriv in personnummer..." value="#{registerGrantBackingBean.grant.personNumber}" pt:autofocus="true" />
+                </div>
             </div>
-        </div>
-        <div class="button-row">
-            <h:commandLink styleClass="link-btn primary" value="Fortsätt">
-                <f:ajax execute=":addGrantForm" listener="#{registerGrantBackingBean.personNumberListener}" render=":addGrantForm :grantHistory" onevent="function(data) {focusOnAjaxCompleteTheme(data, '#{registerGrantBackingBean.portletNamespace}:addGrantForm')}" />
-            </h:commandLink>
+            <div class="button-row">
+                <h:commandLink styleClass="link-btn primary" value="Fortsätt">
+                    <f:ajax execute=":addGrantForm" listener="#{registerGrantBackingBean.personNumberListener}" render=":addGrantForm :grantHistory" onevent="function(data) {ajaxComplete(data)}" />
+                </h:commandLink>
+            </div>
         </div>
     </ui:fragment>
     <ui:fragment rendered="#{not empty registerGrantBackingBean.grant.personNumber and not empty registerGrantBackingBean.person}">
-        <p>
-            #{registerGrantBackingBean.grant.personNumber}
-        </p>
+
+        <div class="grant-section">
+            <div class="person-info-row">
+                <div class="person-info-item personnumber">
+                    <h:outputText value="#{registerGrantBackingBean.grant.personNumber}" />
+                </div>
+                <div class="person-info-item">
+                    <h:outputText value="Bengt Bengtsson" />
+                </div>
+                <div class="person-info-item">
+                    <h:outputText value="Bengtsgatan 1" />
+                </div>
+                <div class="person-info-item">
+                    <h:outputText value="123 45 Bengtstad" />
+                </div>
+            </div>
+        </div>
+
     </ui:fragment>
 
     <ui:fragment rendered="#{not empty registerGrantBackingBean.person and empty registerGrantBackingBean.grant.grantType}">
-        <div class="field-row">
-            <div class="field-element inline">
+        <div class="grant-section">
+            <div class="field-row">
+                <div class="field-element inline">
 
-                <h:outputLabel for="grantType" value="Bidragstyp:" />
+                    <h:outputLabel for="grantType" value="Bidragstyp:" />
 
-                <h:selectOneMenu id="grantType" value="#{registerGrantBackingBean.grant.grantType}" pt:autofocus="true">
-                    <f:selectItem itemValue="-1" itemLabel="" />
-                    <f:selectItem itemValue="0" itemLabel="0-15" />
-                    <f:selectItem itemValue="1" itemLabel="Övriga" />
-                </h:selectOneMenu>
+                    <h:selectOneMenu id="grantType" value="#{registerGrantBackingBean.grant.grantType}" pt:autofocus="true">
+                        <f:selectItem itemValue="-1" itemLabel="" />
+                        <f:selectItem itemValue="0" itemLabel="0-15" />
+                        <f:selectItem itemValue="1" itemLabel="Övriga" />
+                    </h:selectOneMenu>
+                </div>
             </div>
-        </div>
-        <div class="button-row">
-            <h:commandLink styleClass="link-btn primary" value="Fortsätt">
-                <f:ajax execute=":addGrantForm" listener="#{registerGrantBackingBean.grantTypeListener}" render=":addGrantForm" onevent="function(data) {focusOnAjaxCompleteTheme(data, '#{registerGrantBackingBean.portletNamespace}:addGrantForm')}" />
-            </h:commandLink>
+            <div class="button-row">
+                <h:commandLink styleClass="link-btn primary" value="Fortsätt">
+                    <f:ajax execute=":addGrantForm" listener="#{registerGrantBackingBean.grantTypeListener}" render=":addGrantForm" onevent="function(data) {ajaxComplete(data)}" />
+                </h:commandLink>
+            </div>
         </div>
     </ui:fragment>
 
     <ui:fragment rendered="#{not empty registerGrantBackingBean.person and not empty registerGrantBackingBean.grant.grantType}">
-        <p>
-            Bidragstyp: #{registerGrantBackingBean.grant.grantType}
-        </p>
+        <div class="grant-section">
+            <p>
+                Bidragstyp: #{registerGrantBackingBean.grant.grantType}
+            </p>
+        </div>
     </ui:fragment>
 
     <ui:fragment rendered="#{not empty registerGrantBackingBean.person and registerGrantBackingBean.grant.grantType == 0}">
 
-        <div class="field-row field-row-2">
-            <div class="field-element inline">
-                <h:outputLabel for="prescriptionDate" value="Receptdatum:" />
-                <h:inputText id="prescriptionDate" pt:placeholder="ÅÅÅÅ-MM-DD" value="#{registerGrantBackingBean.grant.prescriptionDate}" pt:autofocus="true" pt:data-usemask="true" pt:data-masktype="date">
-                    <h:outputText value="#{iregisterGrantBackingBean.grant.prescriptionDate}">
-                        <f:convertDateTime pattern="yyyy-MM-dd" />
-                    </h:outputText>
-                </h:inputText>
+        <div class="grant-section">
+            <div class="field-row field-row-2">
+                <div class="field-element inline">
+                    <h:outputLabel for="prescriptionDate" value="Receptdatum:" />
+                    <h:inputText id="prescriptionDate" styleClass="js-input-mask js-input-mask-date" pt:placeholder="ÅÅÅÅ-MM-DD" value="#{registerGrantBackingBean.grant.prescriptionDate}" pt:autofocus="true">
+                        <h:outputText value="#{iregisterGrantBackingBean.grant.prescriptionDate}">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                        </h:outputText>
+                    </h:inputText>
+                </div>
             </div>
         </div>
     </ui:fragment>
 
     <ui:fragment rendered="#{not empty registerGrantBackingBean.person and registerGrantBackingBean.grant.grantType == 1}">
-        <p>Second grant type form elements</p>
+        <div class="grant-section">
+            <p>Second grant type form elements</p>
+        </div>
     </ui:fragment>
 
 

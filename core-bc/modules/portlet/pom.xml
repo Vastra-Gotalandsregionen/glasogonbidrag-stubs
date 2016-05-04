@@ -158,12 +158,6 @@ Generation time : 2015-01-14 09:02:50 CET
         </dependency>
 
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>5.2</version>
-        </dependency>
-
-        <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>2.9.0</version>
