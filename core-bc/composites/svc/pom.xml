@@ -8,12 +8,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>se.vgregion.glasogonbidrag</groupId>
-        <artifactId>glasogonbidrag-core-bc</artifactId>
+        <artifactId>glasogonbidrag-stubs-core-bc</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <groupId>se.vgregion.glasogonbidrag</groupId>
-    <artifactId>glasogonbidrag-core-bc-composite-svc</artifactId>
+    <artifactId>glasogonbidrag-stubs-core-bc-composite-svc</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
 

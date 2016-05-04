@@ -2,6 +2,8 @@ package se.vgregion.glasogonbidrag.backingbean;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -25,7 +27,7 @@ public class RegisterInvoiceBackingBean {
 
     @PostConstruct
     public void init() {
-
+        _log.warn("POSTCONST - submitInvoiceRegistration log!");
     }
 
     public void cancelInvoiceRegistration() {
@@ -34,28 +36,23 @@ public class RegisterInvoiceBackingBean {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         ThemeDisplay themeDisplay = (ThemeDisplay)externalContext.getRequestMap().get(WebKeys.THEME_DISPLAY);
 
-        Group scopeGroup = themeDisplay.getScopeGroup();
+//        Group scopeGroup = themeDisplay.getScopeGroup();
 
         try {
-            boolean privateLayout = true;
+//            boolean privateLayout = true;
 
             String groupFriendlyURL = PortalUtil.getGroupFriendlyURL(
-                    themeDisplay.getScopeGroup(), privateLayout, themeDisplay, themeDisplay.getLocale());
+                    themeDisplay.getScopeGroup(), true, themeDisplay, themeDisplay.getLocale());
 
             externalContext.redirect(groupFriendlyURL);
 
-        } catch (PortalException e) {
-            e.printStackTrace();
-        } catch (SystemException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (PortalException|SystemException|IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public String submitInvoiceRegistration() {
+        _log.warn("RegisterInvoiceBackingBean - submitInvoiceRegistration log!");
 
         System.out.println("RegisterInvoiceBackingBean - submitInvoiceRegistration");
 
@@ -65,6 +62,9 @@ public class RegisterInvoiceBackingBean {
     }
 
 
+
+    private static final Log _log =
+            LogFactoryUtil.getLog(RegisterInvoiceBackingBean.class);
 
 
 }
